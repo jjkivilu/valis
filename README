@@ -1,4 +1,4 @@
-V.A.L.I.S. is a minimal Linux-based operating system consisting of a machine-specific Linux
+V.A.L.I.S. is a minimal Linux-based operating system consisting of a machine-specific Linux 
 kernel, and an initramfs that only provides systemd and a container host.
 
 Download source code:
@@ -12,3 +12,11 @@ Boot:
 2. Create directory /EFI/boot to it
 3. Copy build/tmp/images/bzImage as /EFI/boot/bootx64.efi
 4. Reboot target with the media
+
+Develop:
+VALIS is based on Poky, the Yocto Project reference distribution. All VALIS-specific sources 
+reside under meta-valis. Other layers such as poky and meta-intel exist as submodules. Run 
+"make help" for instructions on how to use the Makefile wrapper for bitbake.
+
+Supported targets:
+- intel-corei7-x64	Generic modern PCs with EFI firmware
