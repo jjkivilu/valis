@@ -1,0 +1,14 @@
+V.A.L.I.S. is a minimal Linux-based operating system consisting of a machine-specific Linux
+kernel, and an initramfs that only provides systemd and a container host.
+
+Download source code:
+git clone --recursive https://github.com/jjkivilu/valis.git
+
+Build:
+make image
+
+Boot:
+1. Create an empty FAT32 media
+2. Create directory /EFI/boot to it
+3. Copy build/tmp/images/bzImage as /EFI/boot/bootx64.efi
+4. Reboot target with the media
