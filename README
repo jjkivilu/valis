@@ -10,7 +10,7 @@ make image
 Boot:
 1. Create an empty FAT32 media
 2. Create directory /EFI/boot to it
-3. Copy build/tmp/images/$(MACHINE)/bzImage-initramfs-intel-corei7-64.bin as /EFI/boot/bootx64.efi
+3. Copy build/tmp/images/$(MACHINE)/bzImage-initramfs-$(MACHINE).bin as /EFI/boot/bootx64.efi
 4. Reboot target with the media
 
 Develop:
@@ -18,5 +18,5 @@ VALIS is based on Poky, the Yocto Project reference distribution. All VALIS-spec
 reside under meta-valis. Other layers such as poky and meta-intel exist as submodules. Run 
 "make help" for instructions on how to use the Makefile wrapper for bitbake.
 
-Supported targets:
+Supported MACHINE targets:
 - intel-corei7-x64	Generic modern PCs with EFI firmware
