@@ -10,7 +10,7 @@ make image
 Boot:
 1. Create an empty FAT32 media
 2. Create directory /EFI/boot to it
-3. Copy build/tmp/images/bzImage as /EFI/boot/bootx64.efi
+3. Copy build/tmp/images/$(MACHINE)/bzImage-initramfs-intel-corei7-64.bin as /EFI/boot/bootx64.efi
 4. Reboot target with the media
 
 Develop:

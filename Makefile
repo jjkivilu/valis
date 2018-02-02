@@ -1,6 +1,6 @@
 DISTRO ?= valis
 MACHINE ?= intel-corei7-64
-IMAGE ?= core-image-minimal
+IMAGE ?= $(DISTRO)-image
 
 ROOT_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 BUILD_DIR ?= $(ROOT_DIR)/build
