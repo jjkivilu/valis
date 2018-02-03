@@ -29,6 +29,7 @@ Targets:
 	bitbake [TASK=...]	Run bitbake with optional arguments specified by TASK
 	config			Create project configuration. Force reconfig with "make -B config"
 	runqemu			Run image under QEMU. Hit Ctrl-A X to exit
+	deploy DIR=...		Deploy image to coorect directory under specified DIR
 	clean			Remove BUILD_DIR
 
 Variables:
@@ -88,6 +89,11 @@ image: $(IMAGE_FILE)
 runqemu: MACHINE = qemux86-64
 runqemu: $(IMAGE_FILE)
 	$(call oe-init-build-env); runqemu kvm nographic $<
+
+deploy: $(IMAGE_FILE)
+	@if [ ! -d '$(DIR)' ]; then echo "ERROR: Please specify DIR=..."; exit 1; fi
+	mkdir -p $(DIR)/EFI/boot
+	cp $(IMAGE_FILE) $(DIR)/EFI/boot/bootx64.efi
 
 clean:
 	-rm -rf $(BUILD_DIR)
