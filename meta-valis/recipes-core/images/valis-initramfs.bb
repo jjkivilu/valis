@@ -13,3 +13,12 @@ BAD_RECOMMENDATIONS += "busybox-syslog"
 
 inherit core-image
 
+fix_dev_console() {
+	if [ ! -e ${IMAGE_ROOTFS}/dev/console ]; then
+		install -d ${IMAGE_ROOTFS}/dev
+		mknod -m 622 ${IMAGE_ROOTFS}/dev/console c 5 1
+	fi
+}
+
+IMAGE_PREPROCESS_COMMAND += "fix_dev_console;"
+

@@ -6,9 +6,13 @@ ROOT_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 BUILD_DIR ?= $(ROOT_DIR)/build
 POKY_DIR ?= $(ROOT_DIR)/poky
 DL_DIR ?= $(ROOT_DIR)/downloads
+DEPLOY_DIR ?= $(BUILD_DIR)/tmp/deploy/images/$(MACHINE)
+
+IMAGE_FILE ?= $(DEPLOY_DIR)/bzImage-initramfs-$(MACHINE).bin
 
 LOCAL_CONF = $(BUILD_DIR)/conf/local.conf
 BBLAYERS_CONF = $(BUILD_DIR)/conf/bblayers.conf
+ALL_CONF_FILES = $(LOCAL_CONF) $(BBLAYER_CONF)
 
 BBLAYERS = $(POKY_DIR)/meta \
 	   $(POKY_DIR)/meta-poky \
@@ -16,7 +20,6 @@ BBLAYERS = $(POKY_DIR)/meta \
 	   $(ROOT_DIR)/meta-intel \
 	   $(ROOT_DIR)/meta-valis \
 	   $(EXTRA_BBLAYERS)
-BBLAYER_CONFS = $(addsuffix /conf/layer.conf,$(BBLAYERS))
 
 define HELP
 Usage: $(MAKE) [target] [variables ...]
@@ -24,6 +27,7 @@ Targets:
 	build-env		Start shell in OE build environment
 	bitbake [TASK=...]	Run bitbake with optional arguments specified by TASK
 	config			Create project configuration. Force reconfig with "make -B config"
+	runqemu			Run image under QEMU. Hit Ctrl-A X to exit
 	clean			Remove BUILD_DIR
 
 Variables:
@@ -50,11 +54,7 @@ $(BBLAYERS_CONF):
 	echo 'BBFILES ?= ""' >> $@
 	for L in $(BBLAYERS); do if [ -d "$$L" ]; then echo "BBLAYERS += \"$$L\"" >> $@; fi; done
 
-config: $(LOCAL_CONF) $(BBLAYERS_CONF) $(BBLAYER_CONFS)
-
-$(BBLAYER_CONFS):
-	@echo "Repository not checked out with --recursive. Updating submodules:"
-	git submodule update --init --recursive
+config: $(ALL_CONF_FILES)
 
 define oe-init-build-env
 OEROOT=$(POKY_DIR) . $(POKY_DIR)/oe-init-build-env $(BUILD_DIR)
@@ -69,8 +69,15 @@ build-env: config
 bitbake: config
 	$(call oe-init-build-env); bitbake $(TASK)
 
-image: TASK=$(IMAGE)
-image: bitbake
+image: $(IMAGE_FILE)
+$(IMAGE_FILE): TASK = $(IMAGE)
+$(IMAGE_FILE): $(ALL_CONF_FILES) bitbake
+
+runqemu: MACHINE = qemux86-64
+runqemu: $(IMAGE_FILE)
+	$(call oe-init-build-env); \
+	runqemu kvm nographic \
+		$(DEPLOY_DIR)/bzImage-initramfs-$(MACHINE).bin
 
 clean:
 	rm -rf $(BUILD_DIR)
