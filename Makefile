@@ -29,7 +29,7 @@ Targets:
 	bitbake [TASK=...]	Run bitbake with optional arguments specified by TASK
 	config			Create project configuration. Force reconfig with "make -B config"
 	runqemu			Run image under QEMU. Hit Ctrl-A X to exit
-	deploy DIR=...		Deploy image to coorect directory under specified DIR
+	deploy DIR=...		Deploy image to correct directory under specified DIR
 	clean			Remove BUILD_DIR
 
 Variables:
