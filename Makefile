@@ -46,6 +46,9 @@ $(LOCAL_CONF):
 	echo 'MACHINE = "$(MACHINE)"' > $@
 	echo 'DISTRO = "$(DISTRO)"' >> $@
 	echo 'DL_DIR = "$(DL_DIR)"' >> $@
+	echo 'PARALLEL_MAKE = "-j10"' >> $@
+	echo 'BB_NUMBER_THREADS = "4"' >> $@
+
 
 $(BBLAYERS_CONF):
 	mkdir -p $(dir $@)
