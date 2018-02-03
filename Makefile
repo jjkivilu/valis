@@ -12,7 +12,7 @@ IMAGE_FILE ?= $(DEPLOY_DIR)/bzImage-initramfs-$(MACHINE).bin
 
 LOCAL_CONF = $(BUILD_DIR)/conf/local.conf
 BBLAYERS_CONF = $(BUILD_DIR)/conf/bblayers.conf
-ALL_CONF_FILES = $(LOCAL_CONF) $(BBLAYER_CONF)
+ALL_CONF_FILES = $(LOCAL_CONF) $(BBLAYERS_CONF)
 
 BBLAYERS = $(POKY_DIR)/meta \
 	   $(POKY_DIR)/meta-poky \
@@ -46,6 +46,9 @@ $(LOCAL_CONF):
 	echo 'MACHINE = "$(MACHINE)"' > $@
 	echo 'DISTRO = "$(DISTRO)"' >> $@
 	echo 'DL_DIR = "$(DL_DIR)"' >> $@
+	echo 'PARALLEL_MAKE = "-j10"' >> $@
+	echo 'BB_NUMBER_THREADS = "4"' >> $@
+
 
 $(BBLAYERS_CONF):
 	mkdir -p $(dir $@)
