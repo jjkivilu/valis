@@ -87,9 +87,7 @@ image: $(IMAGE_FILE)
 
 runqemu: MACHINE = qemux86-64
 runqemu: $(IMAGE_FILE)
-	$(call oe-init-build-env); \
-	runqemu kvm nographic \
-		$(DEPLOY_DIR)/bzImage-$(MACHINE).initramfs-$(MACHINE).bin
+	$(call oe-init-build-env); runqemu kvm nographic $<
 
 clean:
 	-rm -rf $(BUILD_DIR)
