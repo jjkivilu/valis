@@ -30,6 +30,7 @@ Targets:
 	config			Create project configuration. Force reconfig with "make -B config"
 	runqemu			Run image under QEMU. Hit Ctrl-A X to exit
 	deploy DIR=...		Deploy image to correct directory under specified DIR
+	pxeboot IF=...		Run DHCP and TFTP servers on interface IF for PXE network boot
 	clean			Remove BUILD_DIR
 
 Variables:
@@ -94,6 +95,14 @@ deploy: $(IMAGE_FILE)
 	@if [ ! -d '$(DIR)' ]; then echo "ERROR: Please specify DIR=..."; exit 1; fi
 	mkdir -p $(DIR)/EFI/boot
 	cp $(IMAGE_FILE) $(DIR)/EFI/boot/bootx64.efi
+
+pxeboot: $(IMAGE_FILE)
+	@if [ -z '$(IF)' ]; then echo "ERROR: Please specify network interface IF=..."; exit 1; fi
+	sudo ifconfig $(IF) 192.168.2.1 netmask 255.255.255.0
+	sudo dnsmasq -d -i $(IF) -p 0 \
+		--dhcp-range=192.168.2.2,192.168.2.200,72h \
+		--dhcp-boot=$(notdir $(IMAGE_FILE)) \
+		--enable-tftp --tftp-root=$(dir $(IMAGE_FILE))
 
 clean:
 	-rm -rf $(BUILD_DIR)
