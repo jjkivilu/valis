@@ -20,3 +20,4 @@ reside under meta-valis. Other layers such as poky and meta-intel exist as submo
 
 Supported MACHINE targets:
 - intel-corei7-x64	Generic modern PCs with EFI firmware
+- qemux86-64		Test run under KVM
