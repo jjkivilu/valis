@@ -91,6 +91,6 @@ runqemu: $(IMAGE_FILE)
 		$(DEPLOY_DIR)/bzImage-$(MACHINE).initramfs-$(MACHINE).bin
 
 clean:
-	rm -rf $(BUILD_DIR)
+	-rm -rf $(BUILD_DIR)
 
 .PHONY: build-env bitbake image clean
