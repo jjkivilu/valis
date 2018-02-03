@@ -69,15 +69,20 @@ build-env: config
 bitbake: config
 	$(call oe-init-build-env); bitbake $(TASK)
 
-image: $(IMAGE_FILE)
 $(IMAGE_FILE): TASK = $(IMAGE)
-$(IMAGE_FILE): $(ALL_CONF_FILES) bitbake
+$(IMAGE_FILE): bitbake
+image: $(IMAGE_FILE)
+	@du -shD \
+		$(DEPLOY_DIR)/bzImage-$(MACHINE).bin \
+		$(DEPLOY_DIR)/$(DISTRO)-initramfs-$(MACHINE).cpio* \
+		$(IMAGE_FILE) \
+	| sed -e 's,$(DEPLOY_DIR)/,,'
 
 runqemu: MACHINE = qemux86-64
 runqemu: $(IMAGE_FILE)
 	$(call oe-init-build-env); \
 	runqemu kvm nographic \
-		$(DEPLOY_DIR)/bzImage-initramfs-$(MACHINE).bin
+		$(DEPLOY_DIR)/bzImage-$(MACHINE).initramfs-$(MACHINE).bin
 
 clean:
 	rm -rf $(BUILD_DIR)
