@@ -76,6 +76,7 @@ bitbake: $(CONF_FILES)
 	$(call oe-init-build-env); bitbake $(TASK)
 
 $(IMAGE_FILE): TASK = $(IMAGE)
+$(IMAGE_FILE): $(CONF_FILES)
 $(IMAGE_FILE): bitbake
 image: $(IMAGE_FILE)
 	@du -shD \
@@ -93,4 +94,4 @@ runqemu: $(IMAGE_FILE)
 clean:
 	-rm -rf $(BUILD_DIR)
 
-.PHONY: build-env bitbake image clean
+.PHONY: config build-env bitbake image runqemu clean $(CONF_FILES)
