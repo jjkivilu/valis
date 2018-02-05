@@ -41,7 +41,9 @@ Variables:
 	EXTRA_BBLAYERS		List of additional layer directories to be included in build
 	DL_DIR			Alternative location for upstream downloads ($(DL_DIR))
 
-	You can provide these in a file "site.conf" or as arguments to "make"
+	You can provide these as arguments to "make" or in a file "site.conf", for example:
+	  DL_DIR = "/mnt/data/downloads"
+	  DISTROOVERRIDES_append = ":dev"	# to enable development image
 endef
 export HELP
 help:

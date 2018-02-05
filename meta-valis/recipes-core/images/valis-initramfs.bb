@@ -22,3 +22,8 @@ fix_dev_console() {
 
 IMAGE_PREPROCESS_COMMAND += "fix_dev_console;"
 
+inherit extrausers
+EXTRA_USERS_PARAMS_dev = " \
+	usermod -P '' root; \
+"
+
