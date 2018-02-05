@@ -31,6 +31,7 @@ Targets:
 	runqemu			Run image under QEMU. Hit Ctrl-A X to exit
 	deploy DIR=...		Deploy image to correct directory under specified DIR
 	pxeboot IF=...		Run DHCP and TFTP servers on interface IF for PXE network boot
+	browse			Browse initramfs contents with Midnight Commander
 	clean			Remove BUILD_DIR
 
 Variables:
@@ -106,6 +107,9 @@ pxeboot: $(IMAGE_FILE)
 		--dhcp-range=192.168.2.2,192.168.2.200,72h \
 		--dhcp-boot=$(notdir $(IMAGE_FILE)) \
 		--enable-tftp --tftp-root=$(dir $(IMAGE_FILE))
+
+browse: $(IMAGE_FILE)
+	mc $(BUILD_DIR)/tmp/work/$(subst -,_,$(MACHINE))-poky-linux/$(DISTRO)-initramfs/*/rootfs
 
 clean:
 	-rm -rf $(BUILD_DIR)
