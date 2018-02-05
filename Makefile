@@ -70,9 +70,7 @@ endef
 
 build-env: SHELL = /bin/bash
 build-env: $(CONF_FILES)
-	($(call oe-init-build-env); \
-	 export PROMPT_COMMAND='printf "\033[1;33m[BB]\033[0m "'; \
-	 exec $(SHELL) -i) || true
+	-$(call oe-init-build-env); exec $(SHELL) -i
 
 bitbake: $(CONF_FILES)
 	$(call oe-init-build-env); bitbake $(TASK)
