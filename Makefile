@@ -75,10 +75,10 @@ build-env: $(CONF_FILES)
 bitbake: $(CONF_FILES)
 	$(call oe-init-build-env); bitbake $(TASK)
 
-$(IMAGE_FILE): TASK = $(IMAGE)
-$(IMAGE_FILE): $(CONF_FILES)
-$(IMAGE_FILE): bitbake
 image: $(IMAGE_FILE)
+$(IMAGE_FILE): $(CONF_FILES)
+$(IMAGE_FILE): TASK = $(IMAGE)
+$(IMAGE_FILE): bitbake
 	@du -shD \
 		$(DEPLOY_DIR)/bzImage-$(MACHINE).bin \
 		$(DEPLOY_DIR)/$(DISTRO)-initramfs-$(MACHINE).cpio* \
