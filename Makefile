@@ -94,9 +94,14 @@ deploy: $(IMAGE_FILE)
 	mkdir -p $(DIR)/EFI/boot
 	cp $(IMAGE_FILE) $(DIR)/EFI/boot/bootx64.efi
 
+pxeboot: WAN = $(shell route | awk '/^default/ { print $$8 }')
 pxeboot: $(IMAGE_FILE)
 	@if [ -z '$(IF)' ]; then echo "ERROR: Please specify network interface IF=..."; exit 1; fi
 	sudo ifconfig $(IF) 192.168.2.1 netmask 255.255.255.0
+	sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+	sudo iptables -t nat -A POSTROUTING -o $(WAN) -j MASQUERADE
+	sudo iptables -A FORWARD -i $(WAN) -o $(IF) -m state --state RELATED,ESTABLISHED -j ACCEPT
+	sudo iptables -A FORWARD -i $(IF) -o $(WAN) -j ACCEPT
 	sudo dnsmasq -d -i $(IF) -p 0 \
 		--dhcp-range=192.168.2.2,192.168.2.200,72h \
 		--dhcp-boot=$(notdir $(IMAGE_FILE)) \
