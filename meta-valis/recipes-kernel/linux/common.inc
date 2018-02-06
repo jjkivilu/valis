@@ -1,7 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-KTYPE = "tiny"
 KERNEL_FEATURES = ""
+
+SRC_URI_append += "file://defconfig"
 
 SRC_URI_append += "file://cmdline.cfg"
 
