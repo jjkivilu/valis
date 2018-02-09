@@ -19,6 +19,11 @@ BBLAYERS = $(POKY_DIR)/meta \
 	   $(POKY_DIR)/meta-poky \
 	   $(POKY_DIR)/meta-yocto-bsp \
 	   $(ROOT_DIR)/meta-intel \
+	   $(ROOT_DIR)/meta-openembedded/meta-oe \
+	   $(ROOT_DIR)/meta-openembedded/meta-python \
+	   $(ROOT_DIR)/meta-openembedded/meta-networking \
+	   $(ROOT_DIR)/meta-openembedded/meta-filesystems \
+	   $(ROOT_DIR)/meta-virtualization \
 	   $(ROOT_DIR)/meta-valis \
 	   $(EXTRA_BBLAYERS)
 
