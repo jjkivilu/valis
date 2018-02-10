@@ -1,5 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
+LINUX_VERSION_EXTENSION = "-${DISTRO}"
+
 KERNEL_FEATURES = ""
 
 SRC_URI_append += "file://defconfig"
