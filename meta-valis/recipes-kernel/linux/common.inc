@@ -1,5 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
+DEPENDS_append += "lz4-native"
+
 LINUX_VERSION_EXTENSION = "-${DISTRO}"
 
 KERNEL_FEATURES = ""
