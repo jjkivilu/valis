@@ -87,11 +87,11 @@ image: $(IMAGE_FILE)
 $(IMAGE_FILE): $(CONF_FILES)
 $(IMAGE_FILE): TASK = $(IMAGE)
 $(IMAGE_FILE): bitbake
-	@du -shD \
+	@du -shD $(wildcard \
 		$(DEPLOY_DIR)/bzImage-$(MACHINE).bin \
 		$(DEPLOY_DIR)/$(DISTRO)-initramfs-$(MACHINE).cpio* \
 		$(IMAGE_FILE) \
-	| sed -e 's,$(DEPLOY_DIR)/,,'
+	) | sed -e 's,$(DEPLOY_DIR)/,,'
 
 runqemu: MACHINE = qemux86-64
 runqemu: $(IMAGE_FILE)
