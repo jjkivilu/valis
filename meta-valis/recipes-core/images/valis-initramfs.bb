@@ -14,6 +14,7 @@ export IMAGE_BASENAME = "${DISTRO}-initramfs"
 IMAGE_FEATURES = ""
 IMAGE_LINGUAS = ""
 IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
+IMAGE_FEATURES_append_dev += "debug-tweaks"
 
 BAD_RECOMMENDATIONS += "busybox-syslog"
 
@@ -27,9 +28,3 @@ fix_dev_console() {
 }
 
 IMAGE_PREPROCESS_COMMAND += "fix_dev_console;"
-
-inherit extrausers
-EXTRA_USERS_PARAMS_dev = " \
-	usermod -P '' root; \
-"
-
