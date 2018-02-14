@@ -1,3 +1,6 @@
+-include site.conf
+$(foreach v,$(.VARIABLES),$(eval $(v) := $$(patsubst "%",%,$$($(v)))))
+
 DISTRO ?= valis
 MACHINE ?= intel-corei7-64
 
