@@ -98,7 +98,7 @@ $(IMAGE_FILE): bitbake
 
 runqemu: MACHINE = qemux86-64
 runqemu: $(IMAGE_FILE)
-	$(call oe-init-build-env); runqemu kvm nographic $<
+	$(call oe-init-build-env); runqemu kvm nographic qemuparams="-m 1024" $<
 
 deploy: $(IMAGE_FILE)
 	@if [ ! -d '$(DIR)' ]; then echo "ERROR: Please specify DIR=..."; exit 1; fi
