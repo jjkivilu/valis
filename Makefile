@@ -40,6 +40,7 @@ Targets:
 	deploy DIR=...		Deploy image to correct directory under specified DIR
 	pxeboot IF=...		Run DHCP and TFTP servers on interface IF for PXE network boot
 	browse			Browse initramfs contents with Midnight Commander
+	deps			Generate task and recipe dependency graphics under BUILD_DIR
 	clean			Remove BUILD_DIR
 
 Variables:
@@ -121,6 +122,9 @@ pxeboot: $(IMAGE_FILE)
 
 browse: $(IMAGE_FILE)
 	mc $(BUILD_DIR)/tmp/work/$(subst -,_,$(MACHINE))-poky-linux/$(DISTRO)-initramfs/*/rootfs
+
+deps: TASK = -g $(IMAGE)
+deps: bitbake
 
 clean:
 	-rm -rf $(BUILD_DIR)
