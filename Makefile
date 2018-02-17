@@ -62,6 +62,7 @@ $(LOCAL_CONF):
 	echo 'MACHINE ?= "$(MACHINE)"' > $@
 	echo 'DISTRO ?= "$(DISTRO)"' >> $@
 	echo 'DL_DIR ?= "$(DL_DIR)"' >> $@
+	echo 'RM_OLD_IMAGE = "1"' >> $@
 
 $(SITE_CONF): $(wildcard $(ROOT_DIR)/site.conf)
 	for f in $^; do cp $$f $@; done
