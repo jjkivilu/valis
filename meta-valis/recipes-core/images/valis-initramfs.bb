@@ -15,7 +15,7 @@ export IMAGE_BASENAME = "${DISTRO}-initramfs"
 IMAGE_FEATURES = ""
 IMAGE_LINGUAS = ""
 IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
-IMAGE_FEATURES_append_dev += "debug-tweaks"
+IMAGE_FEATURES_append_dev += "debug-tweaks package-management"
 
 BAD_RECOMMENDATIONS += "busybox-syslog"
 
