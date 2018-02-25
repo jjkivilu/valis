@@ -19,5 +19,6 @@ reside under meta-valis. Other layers such as poky and meta-intel exist as submo
 "make help" for instructions on how to use the Makefile wrapper for bitbake.
 
 Supported MACHINE targets:
-- intel-corei7-x64	Generic modern PCs with EFI firmware
 - qemux86-64		Test run under KVM
+- intel-corei7-64	Generic modern PCs with EFI firmware
+  - minnowboard-turbot	Derived target for Minnowboard Turbot family and possibly other Atom E3800
