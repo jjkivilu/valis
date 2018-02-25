@@ -64,6 +64,7 @@ $(LOCAL_CONF):
 	echo 'DISTRO ?= "$(DISTRO)"' >> $@
 	echo 'DL_DIR ?= "$(DL_DIR)"' >> $@
 	echo 'RM_OLD_IMAGE = "1"' >> $@
+	echo 'VALIS_LICENSE = "${ROOT_DIR}/LICENSE"' >> $@
 
 $(SITE_CONF): $(wildcard $(ROOT_DIR)/site.conf)
 	for f in $^; do cp $$f $@; done
