@@ -10,6 +10,8 @@ IMAGE_INSTALL += "dropbear"
 IMAGE_INSTALL += "docker"
 
 IMAGE_INSTALL_append_dev += "less"
+IMAGE_INSTALL_append_dev += "nano"
+IMAGE_INSTALL_append_dev += "strace"
 
 export IMAGE_BASENAME = "${DISTRO}-initramfs"
 IMAGE_FEATURES = ""
