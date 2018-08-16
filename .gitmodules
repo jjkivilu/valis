@@ -1,16 +1,16 @@
 [submodule "poky"]
 	path = poky
 	url = git://git.yoctoproject.org/poky
-	branch = rocko
+	branch = sumo
 [submodule "meta-intel"]
 	path = meta-intel
 	url = git://git.yoctoproject.org/meta-intel
-	branch = rocko
+	branch = sumo
 [submodule "meta-virtualization"]
 	path = meta-virtualization
 	url = git://git.yoctoproject.org/meta-virtualization
-	branch = rocko
+	branch = sumo
 [submodule "meta-openembedded"]
 	path = meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
-	branch = rocko
+	branch = sumo
