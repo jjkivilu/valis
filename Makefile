@@ -18,6 +18,8 @@ SITE_CONF = $(BUILD_DIR)/conf/site.conf
 BBLAYERS_CONF = $(BUILD_DIR)/conf/bblayers.conf
 CONF_FILES = $(LOCAL_CONF) $(SITE_CONF) $(BBLAYERS_CONF)
 
+V ?= 0
+
 BBLAYERS = $(POKY_DIR)/meta \
 	   $(POKY_DIR)/meta-poky \
 	   $(POKY_DIR)/meta-yocto-bsp \
@@ -50,6 +52,7 @@ Variables:
 	IMAGE			Default image to be built by "make image" ($(IMAGE))
 	EXTRA_BBLAYERS		List of additional layer directories to be included in build
 	DL_DIR			Alternative location for upstream downloads ($(DL_DIR))
+	V			Set to 1 for verbose build output
 
 	You can provide these as arguments to "make" or in a file "site.conf", for example:
 	  DL_DIR = "/mnt/data/downloads"
@@ -88,7 +91,11 @@ build-env: $(CONF_FILES)
 	-$(call oe-init-build-env); exec $(SHELL) -i
 
 bitbake: $(CONF_FILES)
+ifeq ($(V),1)
+	$(call oe-init-build-env); bitbake -v $(TASK)
+else
 	$(call oe-init-build-env); bitbake $(TASK)
+endif
 
 image: $(IMAGE_FILE)
 $(IMAGE_FILE): $(CONF_FILES)
@@ -102,7 +109,11 @@ $(IMAGE_FILE): bitbake
 
 runqemu: MACHINE = qemux86-64
 runqemu: $(IMAGE_FILE)
+ifeq ($(V),1)
+	$(call oe-init-build-env); runqemu -d kvm nographic qemuparams="-m 1024" $<
+else
 	$(call oe-init-build-env); runqemu kvm nographic qemuparams="-m 1024" $<
+endif
 
 deploy: $(IMAGE_FILE)
 	@if [ ! -d '$(DIR)' ]; then echo "ERROR: Please specify DIR=..."; exit 1; fi
