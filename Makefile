@@ -27,6 +27,7 @@ BBLAYERS = $(POKY_DIR)/meta \
 	   $(ROOT_DIR)/meta-openembedded/meta-networking \
 	   $(ROOT_DIR)/meta-openembedded/meta-filesystems \
 	   $(ROOT_DIR)/meta-virtualization \
+	   $(ROOT_DIR)/meta-measured \
 	   $(ROOT_DIR)/meta-valis \
 	   $(EXTRA_BBLAYERS)
 

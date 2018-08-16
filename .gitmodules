@@ -14,3 +14,7 @@
 	path = meta-openembedded
 	url = git://git.openembedded.org/meta-openembedded
 	branch = sumo
+[submodule "meta-measured"]
+	path = meta-measured
+	url = https://github.com/flihp/meta-measured.git
+	branch = master
