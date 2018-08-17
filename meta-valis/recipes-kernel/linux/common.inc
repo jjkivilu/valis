@@ -1,6 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-DEPENDS_append += "lz4-native elfutils-native"
+DEPENDS_append += "lz4-native elfutils-native ${INITRAMFS_IMAGE}"
 
 LINUX_KERNEL_TYPE = "tiny"
 LINUX_VERSION_EXTENSION = "-${DISTRO}"
